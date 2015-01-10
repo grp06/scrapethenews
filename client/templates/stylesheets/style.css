@@ -1,0 +1,17 @@
+/* CSS declarations go here */
+
+*
+{
+    font-family: 'Open Sans', sans-serif;
+
+    list-style: none;
+    box-sizing: border-box;
+
+}
+
+h1, h2{
+text-align: center;
+}
+a:hover{
+    text-decoration: none;
+}
