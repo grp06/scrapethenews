@@ -1,17 +1,18 @@
 <template name="all">
 
-	<button class="scrape">
-		
-	Scrape
+	<button class="cat">Scrape</button>
+	&nbsp;
+	<button class="clearDB">Reset</button>
+	<br />
+	<br />
 
-	</button>
-
-
-	<button class="cat">
-		
-	Cat
-
-	</button>
-
+	<div class="ui grid">
+		{{#each returnTechLinks}}
+		<div class="sixteen wide column">
+<div class="ui segment">
+			<a href="{{this}}">{{this}}</a>
+		</div>		</div>
+		{{/each}}
+	</div>
 
 </template>

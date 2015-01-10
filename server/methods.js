@@ -14,21 +14,19 @@ Meteor.methods({
             var $ = cheerio.load(html);
 
 
-
-
-            link = [];
             $('h2.esc-lead-article-title').filter(function() {
 
-
-                link.push($(this).children().attr('href'))
-
+                var link = $(this).children().attr('href')
+                var time = moment().format('MMMM Do YYYY, h:mm:ss a')
+                ScrapedLinks.insert({
+                    scraped: link, 
+                    time: time
+                }, console.log("got the links"))
 
 
             })
 
-            ScrapedLinks.insert({
-                scraped: link
-            }, console.log("got the links"))
+
 
         }));
     }
