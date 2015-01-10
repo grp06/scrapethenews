@@ -24,19 +24,6 @@ if (Meteor.isClient) {
     Template.all.events({
 
         'click .scrape': function() {
-
-            Meteor.call('scrapeDog', function(error, result) {
-                console.log('dog')
-            });
-
-
-        },
-        'click .cat': function() {
-            Meteor.call('scrapeCat', function(error, result) {
-                console.log('cat')
-            });
-        },
-        'click .clearDB': function() {
             ts = ScrapedLinks.find({}, {fields: {scraped: 0}}).fetch();
 
             console.log(ts.length);
@@ -48,7 +35,9 @@ if (Meteor.isClient) {
 
             }
 
-
+            Meteor.call('scrapeCat', function(error, result) {
+                console.log('cat')
+            });
         }
 
 
