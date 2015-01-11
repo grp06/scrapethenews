@@ -2,29 +2,35 @@ ScrapedLinks = new Mongo.Collection("scrapedLinks");
 
 if (Meteor.isClient) {
 
+
+
+
     Template.all.helpers({
-        returnTechLinks: function() {
+        returnLinks: function() {
             //var links = ScrapedLinks.find({}).fetch()
             //var linkArray = links[0].scraped;
             //var fun = linkArray[0]
 
 
-            var scraped = ScrapedLinks.find({}).fetch()
+            return ScrapedLinks.find({}).fetch()
 
-            var uniqueLinks = _(scraped).chain()
-                .pluck('scraped')
-                .flatten()
-                .uniq().compact().value();
 
-            return uniqueLinks
 
-        }
+
+
+
+        },
+
     })
 
     Template.all.events({
 
         'click .scrape': function() {
-            ts = ScrapedLinks.find({}, {fields: {scraped: 0}}).fetch();
+            ts = ScrapedLinks.find({}, {
+                fields: {
+                    scraped: 0
+                }
+            }).fetch();
 
             console.log(ts.length);
 
@@ -34,14 +40,147 @@ if (Meteor.isClient) {
                 })
 
             }
+            var category = $('.item')
+                //var numberOfArticles = $(".numberOfArticles").val();
+
+            var category = Session.get('selectedCategory');
 
             Meteor.call('scrapeCat', function(error, result) {
-                console.log('cat')
+                //do something?
             });
         }
 
+    })
+
+    Template.nav.events({
+        'click .technology': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=tc';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+        }
+    },
+        'click .business': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=b';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .science': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=snc';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .entertainment': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=e';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .health': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=m';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .world': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=w';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .sports': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=s';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .business': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=b';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .business': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=b';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .business': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=b';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .business': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=b';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+        'click .business': function() {
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=b';
+            Meteor.call('scrapeCat', url,  function(error, result) {
+                //do something?
+            });
+			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
+
+            }
+        },
+    
 
     })
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

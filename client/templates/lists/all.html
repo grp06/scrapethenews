@@ -1,15 +1,32 @@
 <template name="all">
 
-	<button class="scrape">Scrape</button>
-
-	<br /><br />
-
-	<div class="ui grid">
-		{{#each returnTechLinks}}
-		<div class="sixteen wide column">
+<div class="ui grid">
+<div class="sbutton sixteen wide column">
 <div class="ui segment">
-			<a href="{{this}}">{{this}}</a>
-		</div>		</div>
+	<p></p>
+</div>
+</div>
+</div>
+	<div class="ui three column page grid">
+
+
+		{{#each returnLinks}}
+		<div class="column">
+			<div class="ui segment">
+				<div class="picBox">
+					<a href="{{link}}">{{title}}</a>
+					<br />
+					<br />
+
+					<img onerror="this.style.display='none'" src="{{pic}}" /> <br />
+
+					<b>{{description}}</b>
+					
+
+				</div>
+
+			</div>
+		</div>
 		{{/each}}
 	</div>
 
