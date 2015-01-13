@@ -15,7 +15,7 @@ Template.all.rendered = function(){
             //var fun = linkArray[0]
 
 
-            return ScrapedLinks.find({}).fetch()
+            return ScrapedLinks.find({}, {limit: 20})
 
 
 
