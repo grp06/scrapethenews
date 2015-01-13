@@ -1,11 +1,12 @@
 Meteor.methods({
 
 
-    scrapeCat: function(url) {
+    scrapeCat: function(url, category) {
 
 
         var cheerio = Meteor.npmRequire('cheerio');
         var request = Meteor.npmRequire('request');
+        var chrono = Meteor.npmRequire('chrono-node')
 
         request(url, Meteor.bindEnvironment(function(error, response, html) {
   			if (!error && response.statusCode == 200) {
@@ -42,7 +43,6 @@ Meteor.methods({
                 var http = "http:";
 
                 if(img4before === undefined){
-                    console.log('undefined')
                 } else {
 
                 var img4 = http.concat(img4before);
@@ -52,19 +52,11 @@ Meteor.methods({
                 }
 
                 if(img16before === undefined){
-                    console.log('undefined')
                 } else {
                 var img16 = http.concat(img16before);
                 imageArray.push(img16)
 
                 }
-
-
-          
-
-            
-
-
 
             });
             var sourceArray = [];
@@ -77,10 +69,15 @@ Meteor.methods({
             var timestampArray = [];
             $('.al-attribution-timestamp').filter(function() {
 
-              timestampArray.push($(this).text());
+              //var time = $(this).text();
+                var hello = chrono.parseDate($(this).text());
+                var time = moment(hello).format('dddd, h:mm a')
+
+                timestampArray.push(time);
 
 
             });
+            
 
 
 
@@ -88,23 +85,30 @@ Meteor.methods({
             //console.log(linkArray)
             //console.log(titleArray)
             //console.log(descriptionArray)
-            console.log(imageArray)
+            //console.log(imageArray)
             //console.log(sourceArray);
-            //console.log(timestampArray);
+            console.log(timestampArray);
+            
 
 
 
             for(i = 0; i < 20; i++){
-                ScrapedLinks.insert({
+            var linkExists = ScrapedLinks.findOne({link: linkArray[i]})
+
+            if(!linkExists){
+               ScrapedLinks.insert({
                     link: linkArray[i],
                     title: titleArray[i],
                     description: descriptionArray[i],
                     imageUrl: imageArray[i],
                     source: sourceArray[i],
-                    timestamp: timestampArray[i]
+                    timestamp: timestampArray[i],
+                    category: category
                 });
+            } else {
+                console.log('exists')
 
-
+                }
             }
 
 

@@ -56,11 +56,13 @@ img{
 .title{
 	margin-top: 10px;
 	margin-bottom: 10px;
+	text-align: center;
 }
 
 .timestamp{
 	margin-top: 12px;
 	font-size: 12px;
+	float: right;
 
 }
 
