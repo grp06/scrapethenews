@@ -3,6 +3,9 @@ ScrapedLinks = new Mongo.Collection("scrapedLinks");
 if (Meteor.isClient) {
 
 
+Template.all.rendered = function(){
+  this.$('.ui.dropdown').dropdown();
+}
 
 
     Template.all.helpers({
@@ -48,15 +51,18 @@ if (Meteor.isClient) {
             Meteor.call('scrapeCat', function(error, result) {
                 //do something?
             });
+        },
+        'click .3hrs': function(){
+
         }
 
     })
 
     Template.nav.events({
         'click .technology': function() {
-       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=tc';
-            Meteor.call('scrapeCat', url,  function(error, result) {
-                //do something?
+       		var url = 'http://news.google.com/news/section?pz=1&cf=all&ned=us&topic=tc&tbs=qdr:h5';
+            Meteor.call('scrapeCat', url, function(error, result) {
+                console.log(error)
             });
 			ts = ScrapedLinks.find({}).fetch(); for (i = 0; i < (ts.length); i++) {ScrapedLinks.remove({_id: ts[i]._id})
 

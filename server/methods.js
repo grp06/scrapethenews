@@ -5,73 +5,81 @@ Meteor.methods({
 
 
         var cheerio = Meteor.npmRequire('cheerio');
-        var http = Meteor.npmRequire('http');
         var request = Meteor.npmRequire('request');
 
         request(url, Meteor.bindEnvironment(function(error, response, html) {
+  			if (!error && response.statusCode == 200) {
 
             var $ = cheerio.load(html);
 
-            var i = 0;
+            var linkArray = [];
             $('h2.esc-lead-article-title').filter(function() {
 
-                link = $(this).children().attr('href')
-                var time = moment().format('MMMM Do YYYY, h:mm:ss a')
-                i = i + 1
-                if (i < 21) {
-                    ScrapedLinks.insert({
-                        link: link,
-                        title: null,
-                        description: null,
-                        pic: null,
-                        number: i
-                    })
-                }
+               linkArray.push($(this).children().attr('href'));
 
-            })
 
-            var f = 0
+            });
+            var titleArray = [];
             $('h2.esc-lead-article-title').filter(function() {
-                title = $(this).children().children().text()
-                f = f + 1
-                if (f < 21) {
-                    ScrapedLinks.update({number: f}, {$set: {title: title}})
-                }
 
-            })
-            var d = 0
-			$('.esc-lead-snippet-wrapper').filter(function() {
-                description = $(this).text()
-                d = d + 1
-                if (d < 21) {
+                titleArray.push($(this).children().children().text())
 
-                    ScrapedLinks.update({number: d}, {$set: {description: description}})
-                }
 
-            })
-            var h = 0
+            });
+            var descriptionArray = [];
+            $('.esc-lead-snippet-wrapper').filter(function() {
+
+                descriptionArray.push($(this).text())
+
+
+            });
+            var imageArray = [];
             $('.esc-thumbnail-image').filter(function() {
-                var picBefore = $(this).attr('src');
-                console.log(picBefore);
+
+                var imgBefore = $(this).attr('src');
                 var http = "http:";
-                var pic = http.concat(picBefore)
-                console.log(pic)
+                var img = http.concat(imgBefore);
+
+                imageArray.push(img)
 
 
 
-                
-                h = h + 1
-                if (h < 21) {
-                    ScrapedLinks.update({number: h}, {$set: {pic: pic}}, console.log('done'))
-                }
+            });
+            var sourceArray = [];
+            $('.al-attribution-cell.source-cell').filter(function() {
 
-            })
-
-            
+              sourceArray.push($(this).text());
 
 
+            });
 
-        }));
+
+
+ 
+            //console.log(linkArray)
+            //console.log(titleArray)
+            //console.log(descriptionArray)
+            //console.log(imageArray)
+            console.log(sourceArray)
+
+
+            for(i = 0; i < 20; i++){
+                ScrapedLinks.insert({
+                    link: linkArray[i],
+                    title: titleArray[i],
+                    description: descriptionArray[i],
+                    imageUrl: imageArray[i],
+                    source: sourceArray[i]
+                });
+
+
+            }
+
+
+
+        } else {
+        	console.log(error)
+        }}));
     }
 });
 

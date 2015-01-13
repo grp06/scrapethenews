@@ -10,7 +10,7 @@ insecure
 
 iron:router
 mizzao:jquery-ui
-mizzao:bootstrap-3
+
 accounts-password
 accounts-ui
 nooitaf:semantic-ui
@@ -32,3 +32,4 @@ meteorhacks:npm
 npm-container
 meteorhacks:async
 mrt:moment
+rclai89:cheerio
