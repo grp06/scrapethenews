@@ -71,8 +71,8 @@ Meteor.methods({
 
               //var time = $(this).text();
                 var hello = chrono.parseDate($(this).text());
-                var time = moment(hello).format('dddd, h:mm a')
 
+                var time = moment(hello).format('MMMM Do, h:mm a')
                 timestampArray.push(time);
 
 
@@ -87,29 +87,39 @@ Meteor.methods({
             //console.log(descriptionArray)
             //console.log(imageArray)
             //console.log(sourceArray);
-            console.log(timestampArray);
+            //console.log(timestampArray);
             
+            var funky = _.zip(timestampArray, linkArray, titleArray, descriptionArray, imageArray, sourceArray)
+
+            var funk = funky.sort();
+
+                     
+
 
 
 
             for(i = 0; i < 20; i++){
-            var linkExists = ScrapedLinks.findOne({link: linkArray[i]})
+            
+            var linkExists = ScrapedLinks.findOne({link: funk[i][1]})
+
 
             if(!linkExists){
                ScrapedLinks.insert({
-                    link: linkArray[i],
-                    title: titleArray[i],
-                    description: descriptionArray[i],
-                    imageUrl: imageArray[i],
-                    source: sourceArray[i],
-                    timestamp: timestampArray[i],
+                    link: funk[i][1],
+                    title: funk[i][2],
+                    description: funk[i][3],
+                    imageUrl: funk[i][4],
+                    source: funk[i][5],
+                    timestamp: funk[i][0],
                     category: category
                 });
             } else {
-                console.log('exists')
+                
 
                 }
-            }
+            } 
+
+
 
 
 

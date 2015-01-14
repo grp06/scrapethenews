@@ -1,0 +1,23 @@
+<template name="search">
+
+	<div class="ui segment">
+
+		<div class="ui input">
+			<input type="text" class="search" placeholder="Search A Topic">
+			</div>
+
+		<div class="ui selection dropdown">
+			<input type="hidden" name="gender">
+			<div class="default text">past hour</div> <i class="dropdown icon"></i>
+			<div class="menu">
+				<div class="hr item" data-value="0" >past hour</div>
+				<div class="3hrs item" data-value="1" >past 3 horus</div>
+				<div class="6hrs item" data-value="2" >past 6 horus</div>
+				<div class="12hrs item" data-value="3" >past 12 hours</div>
+				<div class="24hrs item" data-value="4" >past day</div>
+			</div>
+		</div>
+
+	</div>
+	
+</template>
